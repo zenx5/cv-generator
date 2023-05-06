@@ -10,7 +10,23 @@ datasource db {
   url      = "file:./cv-data.sqlite"
 }
 
-model Jobs {
+model Person {
+  id          Int @id @default(autoincrement())
+  name        String
+  profetion   String
+  summary     String
+  city        String
+  country     String
+  phone       String
+  email       String
+  jobs        Job[] @relation("JobReference")
+  skills      Skill[] @relation("SkillReference")
+  links       Link[] @relation("LinkReference")
+  languages   Language[] @relation("LanguageReference")
+  hobbies     Hobbie[] @relation("HobbieReference")
+}
+
+model Job {
   id          Int @id @default(autoincrement())
   position    String
   enterprise  String
@@ -18,4 +34,42 @@ model Jobs {
   toDate      DateTime
   place       String
   goals       String
+  person_id   Int
+  person      Person @relation("JobReference", fields: [person_id], references: [id])
+}
+
+model Skill {
+  id          Int @id @default(autoincrement())
+  name        String
+  rate        Int
+  show_rate   Boolean
+  show        Boolean
+  person_id   Int
+  person      Person @relation("SkillReference", fields: [person_id], references: [id])
+}
+
+model Link {
+  id          Int @id @default(autoincrement())
+  name        String
+  href        String
+  show        Boolean
+  person_id   Int
+  person      Person @relation("LinkReference", fields: [person_id], references: [id])
+}
+
+model Language {
+  id          Int @id @default(autoincrement())
+  name        String
+  level       String
+  show        Boolean
+  person_id   Int
+  person      Person @relation("LanguageReference", fields: [person_id], references: [id])
+}
+
+model Hobbie {
+  id          Int @id @default(autoincrement())
+  description String
+  show        Boolean
+  person_id   Int
+  person      Person @relation("HobbieReference", fields: [person_id], references: [id])
 }
