@@ -5,32 +5,36 @@ const prisma = new PrismaClient()
 
 export async function GET(request: Request, { params }:{ params:any }) {
     const id = parseInt( params.id )
-    const job = await prisma.job.findUnique({
+    const person = await prisma.person.findUnique({
         where:{
             id
         },
         include:{
-            person: true
+            jobs: true,
+            skills: true,
+            links: true,
+            languages: true,
+            hobbies: true
         }
     })
-    return NextResponse.json( job )
+    return NextResponse.json( person )
 }
 
 export async function PUT(request: NextRequest, { params }:{ params:any }) {
     const id = parseInt( params.id )
     const data = await request.json()
-    const job = await prisma.job.update({
+    const person = await prisma.person.update({
         data:data,
         where:{
             id
         }
     })
-    return NextResponse.json(job)
+    return NextResponse.json(person)
 }
 
 export async function DELETE(request: NextRequest, { params }:{ params:any }) {
     const id = parseInt( params.id )
-    const response = await prisma.job.delete({
+    const response = await prisma.person.delete({
         where:{
             id
         }
