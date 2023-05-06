@@ -23,8 +23,8 @@ export default function FormJob() {
             body: JSON.stringify({
                     position,
                     enterprise,
-                    fromDate,
-                    toDate,
+                    fromDate: fromDate.slice(0,-3).concat('-01T00:00:00.000Z'),
+                    toDate: toDate.slice(0,-3).concat('-30T00:00:00.000Z'),
                     place,
                     goals
                 })
@@ -53,10 +53,10 @@ export default function FormJob() {
                 </Grid>
                 <Grid container>
                     <Grid item xs={3} sx={{ p:1 }}>
-                        <TextField variant="outlined" sx={{ width:'100%' }} label='Desde' value={fromDate} onChange={handlerChange(setFromDate)} />
+                        <TextField variant="outlined" sx={{ width:'100%' }} type='date' label='Desde' value={fromDate} onChange={handlerChange(setFromDate)} />
                     </Grid>
                     <Grid item xs={3} sx={{ p:1 }}>
-                        <TextField variant="outlined" sx={{ width:'100%' }} label='Hasta' value={toDate} onChange={handlerChange(setToDate)}/>
+                        <TextField variant="outlined" sx={{ width:'100%' }} type='date' label='Hasta' value={toDate} onChange={handlerChange(setToDate)}/>
                     </Grid>
                     <Grid item xs={6} sx={{ p:1 }}>
                         <TextField variant="outlined" sx={{ width:'100%' }} label='Lugar'  value={place} onChange={handlerChange(setPlace)}/>
