@@ -57,6 +57,14 @@ export default function EditUserPage({ person }:{ person:any }){
 
     }
 
+    const handlerAdd = (nameEntity:string) => () => {
+        router.push(`/persons/${person.id}/${nameEntity}/create`)
+    }
+
+    const handlerEdit = (nameEntity:string, id:number) => () => {
+        router.push(`/persons/${person.id}/${nameEntity}/${id}`)
+    }
+
     return <MuiProvider theme={lightTheme}>
         <Box>
             <Typography variant="h3">Nuevo Usuario</Typography>
@@ -92,15 +100,18 @@ export default function EditUserPage({ person }:{ person:any }){
                 </Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" sx={{ width:'100%' }} startIcon={<Add />} >Agregar Job</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" sx={{ width:'100%' }} startIcon={<Add />} >Agregar Skill</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" sx={{ width:'100%' }} startIcon={<Add />} >Agregar Link</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" sx={{ width:'100%' }} startIcon={<Add />} >Agregar Language</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" sx={{ width:'100%' }} startIcon={<Add />} >Agregar Hobbie</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('job')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Job</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('skill')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Skill</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('link')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Link</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('language')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Language</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('hobbie')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Hobbie</Button></Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={12} sx={{ p:1 }}>
-                    <Button variant="contained" onClick={handlerSave}>Guardar</Button>
+                <Grid item xs={6} sx={{ p:1, display:'flex', justifyContent:'center' }}>
+                    <Button variant="outlined" onClick={handlerSave}>Guardar</Button>
+                </Grid>
+                <Grid item xs={6} sx={{ p:1, display:'flex', justifyContent:'center' }}>
+                    <Button variant="contained" onClick={handlerSave}>Generar</Button>
                 </Grid>
             </Grid>
         </Box>
