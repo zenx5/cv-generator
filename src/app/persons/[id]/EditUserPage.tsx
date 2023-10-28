@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, Grid, TextField, Typography, Button } from "@mui/material";
+import { Box, Grid, TextField, Typography, Button, Stack, MenuItem, ListItemText, Card, ListItem, List } from "@mui/material";
 import MuiProvider from "@/app/tools/MuiProvider";
 import { useEffect, useState } from "react";
 import lightTheme from "@/app/styles/theme/lightTheme";
 import { useRouter } from "next/navigation";
 import { Add } from "@mui/icons-material";
+import ListEntity from "./ListEntity";
 
 export default function EditUserPage({ person }:{ person:any }){
     const [name, setname] = useState('')
@@ -49,7 +50,6 @@ export default function EditUserPage({ person }:{ person:any }){
                 })
             })
             const result = await response.json()
-            console.log( result )
             document.location.reload()
         } catch(error) {
             console.log(error)
@@ -100,11 +100,21 @@ export default function EditUserPage({ person }:{ person:any }){
                 </Grid>
             </Grid>
             <Grid container>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('job')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Job</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('skill')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Skill</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('link')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Link</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('language')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Language</Button></Grid>
-                <Grid item xs={12/5} sx={{ p:1 }}><Button variant="outlined" onClick={handlerAdd('hobbie')} sx={{ width:'100%' }} startIcon={<Add />} >Agregar Hobbie</Button></Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}>
+                    <ListEntity entities={person?.jobs} onClick={handlerAdd('job')} primaryField='position' secondaryField='goals'/>
+                </Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}>
+                    <ListEntity entities={person?.skills} onClick={handlerAdd('skill')} primaryField='name' secondaryField='rate'/>
+                </Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}>
+                    <ListEntity entities={person?.links} onClick={handlerAdd('link')} primaryField='name' secondaryField='href'/>
+                </Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}>
+                    <ListEntity entities={person?.languages} onClick={handlerAdd('language')} primaryField='name' secondaryField='level'/>
+                </Grid>
+                <Grid item xs={12/5} sx={{ p:1 }}>
+                    <ListEntity entities={person?.hobbies} onClick={handlerAdd('hobbie')} primaryField='description'/>
+                </Grid>
             </Grid>
             <Grid container>
                 <Grid item xs={6} sx={{ p:1, display:'flex', justifyContent:'center' }}>
